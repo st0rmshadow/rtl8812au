@@ -1,9 +1,7 @@
 /* SPDX-License-Identifier: GPL-2.0-only */
 /*
  * Fixes some OS dependencies for driver
- * TODO Rewrite the drivers so file not needed hopefully 
  * TODO Remove Other OS Dependency Not linux
- * TODO Research and rewrite so linux fixes not needed
  *
  * Copyright 2019 Michael Walton <st0rmshadow@etherninja.org> 
  * Copyright(c) 2007 - 2017 Realtek Corporation.
