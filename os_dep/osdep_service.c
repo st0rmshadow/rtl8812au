@@ -146,53 +146,6 @@ void _rtw_mfree(void *pbuf, u32 sz)
 
 }
 
-#ifdef PLATFORM_FREEBSD
-/* review again */
-struct sk_buff *dev_alloc_skb(unsigned int size)
-{
-	struct sk_buff *skb = NULL;
-	u8 *data = NULL;
-
-	/* skb = _rtw_zmalloc(sizeof(struct sk_buff)); */ /* for skb->len, etc. */
-	skb = _rtw_malloc(sizeof(struct sk_buff));
-	if (!skb)
-		goto out;
-	data = _rtw_malloc(size);
-	if (!data)
-		goto nodata;
-
-	skb->head = (unsigned char *)data;
-	skb->data = (unsigned char *)data;
-	skb->tail = (unsigned char *)data;
-	skb->end = (unsigned char *)data + size;
-	skb->len = 0;
-	/* printf("%s()-%d: skb=%p, skb->head = %p\n", __FUNCTION__, __LINE__, skb, skb->head); */
-
-out:
-	return skb;
-nodata:
-	_rtw_mfree(skb, sizeof(struct sk_buff));
-	skb = NULL;
-	goto out;
-
-}
-
-void dev_kfree_skb_any(struct sk_buff *skb)
-{
-	/* printf("%s()-%d: skb->head = %p\n", __FUNCTION__, __LINE__, skb->head); */
-	if (skb->head)
-		_rtw_mfree(skb->head, 0);
-	/* printf("%s()-%d: skb = %p\n", __FUNCTION__, __LINE__, skb); */
-	if (skb)
-		_rtw_mfree(skb, 0);
-}
-struct sk_buff *skb_clone(const struct sk_buff *skb)
-{
-	return NULL;
-}
-
-#endif /* PLATFORM_FREEBSD */
-
 inline struct sk_buff *_rtw_skb_alloc(u32 sz)
 {
 #ifdef PLATFORM_LINUX
