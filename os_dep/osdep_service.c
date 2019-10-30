@@ -704,13 +704,7 @@ inline void *rtw_os_pkt_data(_pkt *pkt)
 
 inline u32 rtw_os_pkt_len(_pkt *pkt)
 {
-#if defined(PLATFORM_LINUX)
 	return pkt->len;
-#elif defined(PLATFORM_FREEBSD)
-	return pkt->m_pkthdr.len;
-#else
-	#error "TBD\n"
-#endif
 }
 
 void _rtw_memcpy(void *dst, const void *src, u32 sz)
