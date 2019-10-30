@@ -148,13 +148,7 @@ void _rtw_mfree(void *pbuf, u32 sz)
 
 inline struct sk_buff *_rtw_skb_alloc(u32 sz)
 {
-#ifdef PLATFORM_LINUX
 	return __dev_alloc_skb(sz, in_interrupt() ? GFP_ATOMIC : GFP_KERNEL);
-#endif /* PLATFORM_LINUX */
-
-#ifdef PLATFORM_FREEBSD
-	return dev_alloc_skb(sz);
-#endif /* PLATFORM_FREEBSD */
 }
 
 inline void _rtw_skb_free(struct sk_buff *skb)
