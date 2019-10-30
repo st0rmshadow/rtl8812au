@@ -38,7 +38,6 @@ inline int RTW_STATUS_CODE(int error_code)
 
 u32 rtw_atoi(u8 *s)
 {
-
 	int num = 0, flag = 0;
 	int i;
 	for (i = 0; i <= strlen(s); i++) {
@@ -49,32 +48,21 @@ u32 rtw_atoi(u8 *s)
 		else
 			break;
 	}
-
 	if (flag == 1)
 		num = num * -1;
-
 	return num;
-
 }
 
 inline void *_rtw_vmalloc(u32 sz)
 {
 	void *pbuf;
-#ifdef PLATFORM_LINUX
 	pbuf = vmalloc(sz);
-#endif
-
-#ifdef PLATFORM_WINDOWS
-	NdisAllocateMemoryWithTag(&pbuf, sz, RT_TAG);
-#endif
 
 #ifdef DBG_MEMORY_LEAK
-#ifdef PLATFORM_LINUX
 	if (pbuf != NULL) {
 		atomic_inc(&_malloc_cnt);
 		atomic_add(sz, &_malloc_size);
 	}
-#endif
 #endif /* DBG_MEMORY_LEAK */
 
 	return pbuf;
@@ -83,20 +71,9 @@ inline void *_rtw_vmalloc(u32 sz)
 inline void *_rtw_zvmalloc(u32 sz)
 {
 	void *pbuf;
-#ifdef PLATFORM_LINUX
 	pbuf = _rtw_vmalloc(sz);
 	if (pbuf != NULL)
 		memset(pbuf, 0, sz);
-#endif
-#ifdef PLATFORM_FREEBSD
-	pbuf = malloc(sz, M_DEVBUF, M_ZERO | M_NOWAIT);
-#endif
-#ifdef PLATFORM_WINDOWS
-	NdisAllocateMemoryWithTag(&pbuf, sz, RT_TAG);
-	if (pbuf != NULL)
-		NdisFillMemory(pbuf, sz, 0);
-#endif
-
 	return pbuf;
 }
 
