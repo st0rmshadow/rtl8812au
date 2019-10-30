@@ -1,17 +1,13 @@
-/******************************************************************************
+/* SPDX-License-Identifier: GPL-2.0-only */
+/*
+ * Fixes some OS dependencies for driver
+ * TODO Rewrite the drivers so file not needed hopefully 
+ * TODO Remove Other OS Dependency Not linux
+ * TODO Research and rewrite so linux fixes not needed
  *
+ * Copyright 2019 Michael Walton <st0rmshadow@etherninja.org> 
  * Copyright(c) 2007 - 2017 Realtek Corporation.
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of version 2 of the GNU General Public License as
- * published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- *
- *****************************************************************************/
+ */
 
 
 #define _OSDEP_SERVICE_C_
