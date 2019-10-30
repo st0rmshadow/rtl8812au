@@ -205,17 +205,7 @@ void _rtw_skb_queue_purge(struct sk_buff_head *list)
 #ifdef CONFIG_USB_HCI
 inline void *_rtw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_addr_t *dma)
 {
-#ifdef PLATFORM_LINUX
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 35))
 	return usb_alloc_coherent(dev, size, (in_interrupt() ? GFP_ATOMIC : GFP_KERNEL), dma);
-#else
-	return usb_buffer_alloc(dev, size, (in_interrupt() ? GFP_ATOMIC : GFP_KERNEL), dma);
-#endif
-#endif /* PLATFORM_LINUX */
-
-#ifdef PLATFORM_FREEBSD
-	return malloc(size, M_USBDEV, M_NOWAIT | M_ZERO);
-#endif /* PLATFORM_FREEBSD */
 }
 inline void _rtw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr, dma_addr_t dma)
 {
