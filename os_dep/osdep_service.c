@@ -168,17 +168,7 @@ inline struct sk_buff *_rtw_skb_clone(struct sk_buff *skb)
 
 inline struct sk_buff *_rtw_pskb_copy(struct sk_buff *skb)
 {
-#ifdef PLATFORM_LINUX
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 36))
 	return pskb_copy(skb, in_interrupt() ? GFP_ATOMIC : GFP_KERNEL);
-#else
-	return skb_clone(skb, in_interrupt() ? GFP_ATOMIC : GFP_KERNEL);
-#endif
-#endif /* PLATFORM_LINUX */
-
-#ifdef PLATFORM_FREEBSD
-	return NULL;
-#endif /* PLATFORM_FREEBSD */
 }
 
 inline int _rtw_netif_rx(_nic_hdl ndev, struct sk_buff *skb)
