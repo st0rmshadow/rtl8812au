@@ -89,32 +89,17 @@ inline void _rtw_vmfree(void *pbuf, u32 sz)
 void *_rtw_malloc(u32 sz)
 {
 	void *pbuf = NULL;
-
-#ifdef PLATFORM_LINUX
 #ifdef RTK_DMP_PLATFORM
 	if (sz > 0x4000)
 		pbuf = dvr_malloc(sz);
 	else
 #endif
 		pbuf = kmalloc(sz, in_interrupt() ? GFP_ATOMIC : GFP_KERNEL);
-
-#endif
-#ifdef PLATFORM_FREEBSD
-	pbuf = malloc(sz, M_DEVBUF, M_NOWAIT);
-#endif
-#ifdef PLATFORM_WINDOWS
-
-	NdisAllocateMemoryWithTag(&pbuf, sz, RT_TAG);
-
-#endif
-
 #ifdef DBG_MEMORY_LEAK
-#ifdef PLATFORM_LINUX
 	if (pbuf != NULL) {
 		atomic_inc(&_malloc_cnt);
 		atomic_add(sz, &_malloc_size);
 	}
-#endif
 #endif /* DBG_MEMORY_LEAK */
 
 	return pbuf;
