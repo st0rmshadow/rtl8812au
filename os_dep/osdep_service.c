@@ -173,15 +173,8 @@ inline struct sk_buff *_rtw_pskb_copy(struct sk_buff *skb)
 
 inline int _rtw_netif_rx(_nic_hdl ndev, struct sk_buff *skb)
 {
-#if defined(PLATFORM_LINUX)
 	skb->dev = ndev;
 	return netif_rx(skb);
-#elif defined(PLATFORM_FREEBSD)
-	return (*ndev->if_input)(ndev, skb);
-#else
-	rtw_warn_on(1);
-	return -1;
-#endif
 }
 
 #ifdef CONFIG_RTW_NAPI
