@@ -699,13 +699,7 @@ inline _pkt *rtw_os_pkt_copy(_pkt *pkt)
 
 inline void *rtw_os_pkt_data(_pkt *pkt)
 {
-#if defined(PLATFORM_LINUX)
 	return pkt->data;
-#elif defined(PLATFORM_FREEBSD)
-	return pkt->m_data;
-#else
-	#error "TBD\n"
-#endif
 }
 
 inline u32 rtw_os_pkt_len(_pkt *pkt)
