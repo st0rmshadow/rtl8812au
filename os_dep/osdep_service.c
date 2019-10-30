@@ -79,9 +79,6 @@ inline void *_rtw_vmalloc(u32 sz)
 #ifdef PLATFORM_LINUX
 	pbuf = vmalloc(sz);
 #endif
-#ifdef PLATFORM_FREEBSD
-	pbuf = malloc(sz, M_DEVBUF, M_NOWAIT);
-#endif
 
 #ifdef PLATFORM_WINDOWS
 	NdisAllocateMemoryWithTag(&pbuf, sz, RT_TAG);
