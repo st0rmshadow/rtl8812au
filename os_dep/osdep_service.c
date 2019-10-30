@@ -709,19 +709,7 @@ inline u32 rtw_os_pkt_len(_pkt *pkt)
 
 void _rtw_memcpy(void *dst, const void *src, u32 sz)
 {
-
-#if defined(PLATFORM_LINUX) || defined (PLATFORM_FREEBSD)
-
 	memcpy(dst, src, sz);
-
-#endif
-
-#ifdef PLATFORM_WINDOWS
-
-	NdisMoveMemory(dst, src, sz);
-
-#endif
-
 }
 
 inline void _rtw_memmove(void *dst, const void *src, u32 sz)
