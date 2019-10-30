@@ -180,24 +180,16 @@ inline int _rtw_netif_rx(_nic_hdl ndev, struct sk_buff *skb)
 #ifdef CONFIG_RTW_NAPI
 inline int _rtw_netif_receive_skb(_nic_hdl ndev, struct sk_buff *skb)
 {
-#if defined(PLATFORM_LINUX)
 	skb->dev = ndev;
 	return netif_receive_skb(skb);
-#else
-	rtw_warn_on(1);
-	return -1;
-#endif
 }
 
 #ifdef CONFIG_RTW_GRO
 inline gro_result_t _rtw_napi_gro_receive(struct napi_struct *napi, struct sk_buff *skb)
 {
-#if defined(PLATFORM_LINUX)
 	return napi_gro_receive(napi, skb);
-#else
 	rtw_warn_on(1);
 	return -1;
-#endif
 }
 #endif /* CONFIG_RTW_GRO */
 #endif /* CONFIG_RTW_NAPI */
