@@ -109,25 +109,11 @@ void *_rtw_malloc(u32 sz)
 
 void *_rtw_zmalloc(u32 sz)
 {
-#ifdef PLATFORM_FREEBSD
-	return malloc(sz, M_DEVBUF, M_ZERO | M_NOWAIT);
-#else /* PLATFORM_FREEBSD */
 	void *pbuf = _rtw_malloc(sz);
-
 	if (pbuf != NULL) {
-
-#ifdef PLATFORM_LINUX
 		memset(pbuf, 0, sz);
-#endif
-
-#ifdef PLATFORM_WINDOWS
-		NdisFillMemory(pbuf, sz, 0);
-#endif
-
 	}
-
 	return pbuf;
-#endif /* PLATFORM_FREEBSD */
 }
 
 void _rtw_mfree(void *pbuf, u32 sz)
