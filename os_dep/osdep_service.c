@@ -163,14 +163,9 @@ inline struct sk_buff *_rtw_skb_copy(const struct sk_buff *skb)
 
 inline struct sk_buff *_rtw_skb_clone(struct sk_buff *skb)
 {
-#ifdef PLATFORM_LINUX
 	return skb_clone(skb, in_interrupt() ? GFP_ATOMIC : GFP_KERNEL);
-#endif /* PLATFORM_LINUX */
-
-#ifdef PLATFORM_FREEBSD
-	return skb_clone(skb);
-#endif /* PLATFORM_FREEBSD */
 }
+
 inline struct sk_buff *_rtw_pskb_copy(struct sk_buff *skb)
 {
 #ifdef PLATFORM_LINUX
