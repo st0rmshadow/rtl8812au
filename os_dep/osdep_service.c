@@ -694,13 +694,7 @@ inline void rtw_os_pkt_free(_pkt *pkt)
 
 inline _pkt *rtw_os_pkt_copy(_pkt *pkt)
 {
-#if defined(PLATFORM_LINUX)
 	return rtw_skb_copy(pkt);
-#elif defined(PLATFORM_FREEBSD)
-	return m_dup(pkt, M_NOWAIT);
-#else
-	#error "TBD\n"
-#endif
 }
 
 inline void *rtw_os_pkt_data(_pkt *pkt)
