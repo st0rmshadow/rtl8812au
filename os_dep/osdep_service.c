@@ -207,19 +207,10 @@ inline void *_rtw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_addr
 {
 	return usb_alloc_coherent(dev, size, (in_interrupt() ? GFP_ATOMIC : GFP_KERNEL), dma);
 }
+
 inline void _rtw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr, dma_addr_t dma)
 {
-#ifdef PLATFORM_LINUX
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 35))
 	usb_free_coherent(dev, size, addr, dma);
-#else
-	usb_buffer_free(dev, size, addr, dma);
-#endif
-#endif /* PLATFORM_LINUX */
-
-#ifdef PLATFORM_FREEBSD
-	free(addr, M_USBDEV);
-#endif /* PLATFORM_FREEBSD */
 }
 #endif /* CONFIG_USB_HCI */
 
