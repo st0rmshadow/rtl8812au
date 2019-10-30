@@ -215,7 +215,6 @@ inline void _rtw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr
 #endif /* CONFIG_USB_HCI */
 
 #if defined(DBG_MEM_ALLOC)
-
 struct rtw_mem_stat {
 	ATOMIC_T alloc; /* the memory bytes we allocate currently */
 	ATOMIC_T peak; /* the peak memory bytes we allocate */
@@ -690,13 +689,7 @@ void rtw_mfree2d(void *pbuf, int h, int w, int size)
 
 inline void rtw_os_pkt_free(_pkt *pkt)
 {
-#if defined(PLATFORM_LINUX)
 	rtw_skb_free(pkt);
-#elif defined(PLATFORM_FREEBSD)
-	m_freem(pkt);
-#else
-	#error "TBD\n"
-#endif
 }
 
 inline _pkt *rtw_os_pkt_copy(_pkt *pkt)
